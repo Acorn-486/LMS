@@ -10,12 +10,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-public class MainPage {
+public class MainController {
 
 	@RequestMapping("/")
 	public String index() {
 		
-		return "Index Page";
+		return "index";
 	}
 	
 	@RequestMapping("/hello")
