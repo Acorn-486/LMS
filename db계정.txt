@@ -1,5 +1,5 @@
 - MariaDB 10.6.7
-IP - 127.0.0.1
+IP - localhost
 Port - 43306
 DB instance - minicampus
 ID - minicampus_user
