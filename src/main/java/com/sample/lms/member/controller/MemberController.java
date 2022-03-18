@@ -1,4 +1,4 @@
-package com.sample.lms.member;
+package com.sample.lms.member.controller;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -7,9 +7,17 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import com.sample.lms.member.model.MemberInput;
+import com.sample.lms.member.service.MemberService;
+
+import lombok.RequiredArgsConstructor;
+
+@RequiredArgsConstructor
 @Controller
 public class MemberController {
 
+	private final MemberService memberService;
+	
 	@GetMapping("/member/register")
 	public String register() {
 		
@@ -20,6 +28,8 @@ public class MemberController {
 	public String registerSubmit(HttpServletRequest request, HttpServletResponse response,
 			MemberInput parameter) {
 		
-		return "member/register";
+		boolean result = memberService.register(parameter);
+		
+		return "member/register_complete";
 	}
 }
