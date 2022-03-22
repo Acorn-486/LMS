@@ -6,4 +6,6 @@ public interface MemberService {
 
 	boolean register(MemberInput parameter);
 	
+	boolean emailAuth(String uuid);
+	
 }
