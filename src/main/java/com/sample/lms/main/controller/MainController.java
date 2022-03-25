@@ -1,4 +1,4 @@
-package com.sample.lms;
+package com.sample.lms.main.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;

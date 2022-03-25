@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.sample.lms.member.model.MemberInput;
 import com.sample.lms.member.service.MemberService;
@@ -18,6 +19,12 @@ import lombok.RequiredArgsConstructor;
 public class MemberController {
 
 	private final MemberService memberService;
+	
+	@RequestMapping("/member/login")
+	public String login() {
+		
+		return "member/login";
+	}
 	
 	@GetMapping("/member/register")
 	public String register() {
@@ -46,6 +53,12 @@ public class MemberController {
 		
 		return "member/email_auth";
 		
+	}
+	
+	@GetMapping("/member/info")
+	public String memberInfo() {
+		
+		return "member/info";
 	}
 	
 }
