@@ -18,6 +18,7 @@ import com.sample.lms.components.MailComponents;
 import com.sample.lms.member.entity.Member;
 import com.sample.lms.member.exception.MemberNotEmailAuthException;
 import com.sample.lms.member.model.MemberInput;
+import com.sample.lms.member.model.ResetPasswordInput;
 import com.sample.lms.member.repository.MemberRepository;
 import com.sample.lms.member.service.MemberService;
 
@@ -96,6 +97,33 @@ public class MemberServiceImpl implements MemberService {
 		grantedAuthorities.add(new SimpleGrantedAuthority("ROLE_USER"));
 		
 		return new User(member.getUserId(), member.getPassword(), grantedAuthorities);
+	}
+
+	@Override
+	public boolean sendResetPassword(ResetPasswordInput parameter) {
+		
+		Optional<Member> optionalMember = memberRepository.findByUserIdAndUserName(parameter.getUserID(), parameter.getUserName());
+		if (!optionalMember.isPresent()) {
+			throw new UsernameNotFoundException("회원 정보가 존재하지 않습니다.");
+		}
+		
+		Member member = optionalMember.get();
+		
+		String uuid = UUID.randomUUID().toString();
+		
+		member.setResetPasswordKey(uuid);
+		member.setResetPasswordLimitDt(LocalDateTime.now().plusDays(1));
+		memberRepository.save(member);
+		
+		String email = parameter.getUserID();
+		String subject = "[LMS] 비밀번호 초기화 메일 입니다";
+		String text = "<p>LMS 비밀번호 초기화 메일 입니다.</p>"
+				+ "<p>아래 링크를 클릭하셔서 비밀번호를 초기화 해주세요.</p>"
+				+ "<div><a target='_blank' href='http://localhost:8080/member/reset/password?id=" + uuid + "'>비밀번호 초기화 링크</a></div>";
+		
+		mailComponents.sendMail(email, subject, text);
+		
+		return true;
 	}
 
 }

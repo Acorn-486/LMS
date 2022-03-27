@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.sample.lms.member.model.MemberInput;
+import com.sample.lms.member.model.ResetPasswordInput;
 import com.sample.lms.member.service.MemberService;
 
 import lombok.RequiredArgsConstructor;
@@ -24,6 +25,27 @@ public class MemberController {
 	public String login() {
 		
 		return "member/login";
+	}
+	
+	@GetMapping("/member/find/password")
+	public String findPassword() {
+		
+		return "member/find_password";
+	}
+	
+	@PostMapping("/member/find/password")
+	public String findPasswordSubmit(Model model, ResetPasswordInput parameter) {
+		
+		boolean result = false;
+		
+		try {
+			result = memberService.sendResetPassword(parameter);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		model.addAttribute("result", result);
+		
+		return "member/find_password_result";
 	}
 	
 	@GetMapping("/member/register")
