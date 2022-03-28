@@ -83,4 +83,11 @@ public class MemberController {
 		return "member/info";
 	}
 	
+	@GetMapping("/member/reset/password")
+	public String resetPassword() {
+		
+		
+		
+		return "member/reset_password";
+	}
 }
