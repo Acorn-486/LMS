@@ -7,4 +7,7 @@ public class ResetPasswordInput {
 
 	private String userID;
 	private String userName;
+	
+	private String id;
+	private String password;
 }
